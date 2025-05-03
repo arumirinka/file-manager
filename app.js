@@ -1,5 +1,6 @@
 import { up } from './modules/nwd/up.js';
 import { cd } from './modules/nwd/cd.js';
+import { ls } from './modules/nwd/ls.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -14,6 +15,9 @@ const app = async () => {
       console.log(`You are currently in ${process.cwd()}`);
     } else if (inputStr.startsWith('cd ')) {
       cd(inputStr.slice(3));
+      console.log(`You are currently in ${process.cwd()}`);
+    } else if (inputStr === 'ls') {
+      ls();
       console.log(`You are currently in ${process.cwd()}`);
     } else if (inputStr === '.exit') {
       process.exit();
