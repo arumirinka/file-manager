@@ -14,6 +14,8 @@ import { homedir } from './modules/os/homedir.js';
 import { username as usernameOS } from './modules/os/username.js';
 import { arch } from './modules/os/arch.js';
 import { hash } from './modules/hash.js';
+import { compress } from './modules/brotli/compress.js';
+import { decompress } from './modules/brotli/decompress.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -60,6 +62,12 @@ const app = async () => {
     } else if (inputStr.startsWith('hash ')) {
       const params = inputStr.slice(5).split(' ');
       params.length === 1 ? hash(...params) : console.log('Invalid input');
+    } else if (inputStr.startsWith('compress ')) {
+      const params = inputStr.slice(9).split(' ');
+      params.length === 2 ? compress(...params) : console.log('Invalid input');
+    } else if (inputStr.startsWith('decompress ')) {
+      const params = inputStr.slice(11).split(' ');
+      params.length === 2 ? decompress(...params) : console.log('Invalid input');
     } else if (inputStr === '.exit') {
       process.exit();
     } else {
