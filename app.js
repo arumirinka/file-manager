@@ -13,6 +13,7 @@ import { cpus } from './modules/os/cpus.js';
 import { homedir } from './modules/os/homedir.js';
 import { username as usernameOS } from './modules/os/username.js';
 import { arch } from './modules/os/arch.js';
+import { hash } from './modules/hash.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -56,6 +57,9 @@ const app = async () => {
       usernameOS();
     } else if (inputStr === 'os --architecture') {
       arch();
+    } else if (inputStr.startsWith('hash ')) {
+      const params = inputStr.slice(5).split(' ');
+      params.length === 1 ? hash(...params) : console.log('Invalid input');
     } else if (inputStr === '.exit') {
       process.exit();
     } else {
