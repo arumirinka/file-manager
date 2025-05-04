@@ -5,6 +5,7 @@ import { cat } from './modules/files/cat.js';
 import { add } from './modules/files/add.js';
 import { mkdir } from './modules/files/mkdir.js';
 import { rn } from './modules/files/rn.js';
+import { cp } from './modules/files/cp.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -29,6 +30,9 @@ const app = async () => {
     } else if (inputStr.startsWith('rn ')) {
       const params = inputStr.slice(3).split(' ');
       params.length === 2 ? rn(...params) : console.log('Invalid input');
+    } else if (inputStr.startsWith('cp ')) {
+      const params = inputStr.slice(3).split(' ');
+      params.length === 2 ? cp(...params) : console.log('Invalid input');
     } else if (inputStr === '.exit') {
       process.exit();
     } else {
