@@ -1,6 +1,8 @@
 import { up } from './modules/nwd/up.js';
 import { cd } from './modules/nwd/cd.js';
 import { ls } from './modules/nwd/ls.js';
+import { cat } from './modules/files/cat.js';
+import { add } from './modules/files/add.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -12,17 +14,22 @@ const app = async () => {
     const inputStr = chunk.toString().trim();
     if (inputStr === 'up') {
       up();
-      console.log(`You are currently in ${process.cwd()}`);
     } else if (inputStr.startsWith('cd ')) {
       cd(inputStr.slice(3));
-      console.log(`You are currently in ${process.cwd()}`);
     } else if (inputStr === 'ls') {
       ls();
-      console.log(`You are currently in ${process.cwd()}`);
+    } else if (inputStr.startsWith('cat ')) {
+      cat(inputStr.slice(4));
+    } else if (inputStr.startsWith('add ')) {
+      add(inputStr.slice(4));
     } else if (inputStr === '.exit') {
       process.exit();
+    } else {
+      console.log('Invalid input');
     }
-  })
+    console.log(`You are currently in ${process.cwd()}`);
+  });
+
   process.on('SIGINT', () => process.exit());
   process.on('exit', () => console.log(`Thank you for using File Manager, ${username}, goodbye!`));
 };
