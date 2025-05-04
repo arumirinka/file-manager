@@ -4,6 +4,7 @@ import { ls } from './modules/nwd/ls.js';
 import { cat } from './modules/files/cat.js';
 import { add } from './modules/files/add.js';
 import { mkdir } from './modules/files/mkdir.js';
+import { rn } from './modules/files/rn.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -25,6 +26,9 @@ const app = async () => {
       add(inputStr.slice(4));
     } else if (inputStr.startsWith('mkdir ')) {
       mkdir(inputStr.slice(6));
+    } else if (inputStr.startsWith('rn ')) {
+      const params = inputStr.slice(3).split(' ');
+      params.length === 2 ? rn(...params) : console.log('Invalid input');
     } else if (inputStr === '.exit') {
       process.exit();
     } else {
