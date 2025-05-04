@@ -1,3 +1,4 @@
+import os from 'os';
 import { up } from './modules/nwd/up.js';
 import { cd } from './modules/nwd/cd.js';
 import { ls } from './modules/nwd/ls.js';
@@ -18,6 +19,7 @@ import { compress } from './modules/brotli/compress.js';
 import { decompress } from './modules/brotli/decompress.js';
 
 const app = async () => {
+  process.chdir(os.homedir());
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
   console.log(`Welcome to the File Manager, ${username}!`);
   console.log(`You are currently in ${process.cwd()}`);
