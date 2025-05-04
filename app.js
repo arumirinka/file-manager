@@ -8,6 +8,11 @@ import { rn } from './modules/files/rn.js';
 import { cp } from './modules/files/cp.js';
 import { mv } from './modules/files/mv.js';
 import { rm } from './modules/files/rm.js';
+import { eol } from './modules/os/eol.js';
+import { cpus } from './modules/os/cpus.js';
+import { homedir } from './modules/os/homedir.js';
+import { username as usernameOS } from './modules/os/username.js';
+import { arch } from './modules/os/arch.js';
 
 const app = async () => {
   const username = process.argv.find((arg) => arg.startsWith('--username='))?.split('=')?.[1] || 'guest';
@@ -41,6 +46,16 @@ const app = async () => {
     } else if (inputStr.startsWith('rm ')) {
       const params = inputStr.slice(3).split(' ');
       params.length === 1 ? rm(...params) : console.log('Invalid input');
+    } else if (inputStr === 'os --EOL') {
+      eol();
+    } else if (inputStr === 'os --cpus') {
+      cpus();
+    } else if (inputStr === 'os --homedir') {
+      homedir();
+    } else if (inputStr === 'os --username') {
+      usernameOS();
+    } else if (inputStr === 'os --architecture') {
+      arch();
     } else if (inputStr === '.exit') {
       process.exit();
     } else {
